@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { VideosService } from './videos.service';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { UpdateVideoDto } from './dto/update-video.dto';
@@ -9,11 +9,16 @@ export class VideosController {
 
   @Post()
   create(@Body() createVideoDto: CreateVideoDto) {
+
+    console.log(createVideoDto)
     return this.videosService.create(createVideoDto);
   }
 
-  @Get()
-  findAll() {
+  @Get(':id')
+  findAll(
+    @Param() id: string
+  ) {
+    console.log(id)
     return this.videosService.findAll();
   }
 
